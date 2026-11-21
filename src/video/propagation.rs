@@ -1,7 +1,7 @@
 use super::*;
-use crate::models::sam3::neck::TrackerVisualSequences;
-use crate::models::sam3::torch_ops::tensor::first_scalar_f32;
-use crate::models::sam3::tracker::{add_tensor_memory, maybe_to_dtype, PackedPromptHistory};
+use crate::neck::TrackerVisualSequences;
+use crate::torch_ops::tensor::first_scalar_f32;
+use crate::tracker::{add_tensor_memory, maybe_to_dtype, PackedPromptHistory};
 
 #[derive(Debug, Clone)]
 pub struct SessionPrompt {
@@ -2742,7 +2742,7 @@ mod tests {
 
     #[test]
     fn bounded_history_minimum_covers_tracker_selection_windows() {
-        let config = Sam3TrackerConfig::from_sam3_config(&crate::models::sam3::Config::default());
+        let config = Sam3TrackerConfig::from_sam3_config(&crate::Config::default());
         let minimum = minimum_non_cond_tracker_state_bound(&config);
         assert!(minimum >= config.num_maskmem * config.memory_temporal_stride_for_eval.max(1));
         assert!(minimum >= config.max_obj_ptrs_in_encoder.saturating_sub(1));

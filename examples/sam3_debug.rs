@@ -1,5 +1,5 @@
 use candle::{DType, Device, Result, Tensor};
-use candle_transformers::models::sam3;
+use candle_sam3 as sam3;
 use clap::Parser;
 use std::path::PathBuf;
 

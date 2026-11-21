@@ -269,7 +269,7 @@ mod tests {
     use candle_nn::VarBuilder;
 
     use super::Sam3TextEncoder;
-    use crate::models::sam3::TextConfig;
+    use crate::TextConfig;
 
     #[test]
     fn text_encoder_returns_sequence_first_outputs() -> Result<()> {

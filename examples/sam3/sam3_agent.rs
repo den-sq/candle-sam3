@@ -2,7 +2,7 @@ use std::path::Path;
 
 use anyhow::{bail, Result};
 use candle::Device;
-use candle_transformers::models::sam3;
+use candle_sam3 as sam3;
 
 pub(crate) fn run(
     _model: &sam3::Sam3ImageModel,

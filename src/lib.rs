@@ -4,8 +4,11 @@
 //!
 //! SAM 3 is a foundation model for image segmentation that can segment any object in an image using concepts.
 //! - [Arxiv](https://arxiv.org/abs/2511.16719) "SAM 3: Segment Anything with Concepts"
-//! - Upstream [GitHub repo](https://github.com/facebookresearch/segment-anything)
-//! - See sam3 in [candle-examples](https://github.com/huggingface/candle/tree/main/candle-examples/) for runnable code
+//! - Upstream [GitHub repo](https://github.com/facebookresearch/sam3)
+//! - See `examples/sam3` in this repository for runnable code
+//!
+//! This crate is a Rust port of Meta's SAM 3 implementation and is distributed
+//! under the SAM License (see `LICENSE-SAM`).
 //!
 //! This module defines the intended Candle layout for a SAM 3 port:
 //! a ViTDet-style visual trunk, a lightweight FPN neck, a CLIP-like
@@ -30,6 +33,8 @@ pub mod parity_support;
 mod profiling;
 mod segmentation;
 mod text;
+#[cfg(feature = "media")]
+pub mod media;
 pub(crate) mod torch_ops;
 mod tracker;
 mod video;

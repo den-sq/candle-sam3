@@ -534,7 +534,7 @@ mod tests {
     use std::sync::{Arc, Mutex};
 
     use super::*;
-    use crate::models::sam3::VideoDebugArtifactSink;
+    use crate::VideoDebugArtifactSink;
 
     #[derive(Debug, Default)]
     struct RecordingSink {

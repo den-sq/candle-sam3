@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 use candle::{DType, Device, Result, Tensor};
-use candle_transformers::models::sam3::{
+use crate::{
     normalize_rgb_frame_for_sam3, FrameSource, ImageSize, VideoDebugArtifactSink,
 };
 use image::ImageReader;

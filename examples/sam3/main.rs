@@ -1,21 +1,16 @@
-#[cfg(feature = "mkl")]
-extern crate intel_mkl_src;
-
-#[cfg(feature = "accelerate")]
-extern crate accelerate_src;
-
 mod interactive;
 mod sam3_agent;
 mod sam3_image_batched_inference;
 mod sam3_image_predictor_example;
 mod sam3_video_predictor_example;
+mod common;
 mod video;
 
 use anyhow::{bail, Context, Error as E, Result};
 use clap::{Parser, ValueEnum};
 
 use candle::{DType, Device, IndexOp, Tensor};
-use candle_transformers::models::sam3;
+use candle_sam3 as sam3;
 use image::{GrayImage, Luma, Rgba, RgbaImage};
 use imageproc::drawing::{draw_filled_circle_mut, draw_hollow_rect_mut};
 use imageproc::rect::Rect;
@@ -45,7 +40,7 @@ struct Args {
     smoke_image_size: Option<usize>,
 
     /// Directory used for rendered overlay, mask, and summary outputs.
-    #[arg(long, default_value = "candle-examples/examples/sam3/output")]
+    #[arg(long, default_value = "examples/sam3/output")]
     output_dir: String,
 
     /// Optional JSON manifest for sequential notebook-style batch runs.
@@ -1440,7 +1435,7 @@ fn run_vision_and_geometry(
     device: &Device,
 ) -> Result<Option<SelectedPrediction>> {
     let config = model.config();
-    let (original_image, initial_h, initial_w) = candle_examples::load_image(image_path, None)?;
+    let (original_image, initial_h, initial_w) = common::load_image(image_path, None)?;
     let mut state = model.set_image(&original_image)?;
     if let Some(text_prompt) = text_prompt {
         state = state.with_text_prompt(text_prompt.to_string());
@@ -1908,7 +1903,7 @@ mod tests {
 
     fn interactive_visual_fixture_dir() -> PathBuf {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-            .join("../candle-transformers/tests/data/sam3_interactive_visual_seed")
+            .join("tests/data/sam3_interactive_visual_seed")
     }
 
     fn assert_tensor_close(
@@ -2071,7 +2066,7 @@ pub fn main() -> anyhow::Result<()> {
         (None, true) => Some(NotebookExample::ImagePredictor),
         (None, false) => None,
     };
-    let device = candle_examples::device(args.cpu)?;
+    let device = common::device(args.cpu)?;
     let config = sam3::Config::default();
     let checkpoint_source = args
         .checkpoint

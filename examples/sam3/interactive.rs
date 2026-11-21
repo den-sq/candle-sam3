@@ -2,7 +2,7 @@
 
 use anyhow::{bail, Context, Result};
 use candle::{Device, IndexOp, Result as CandleResult, Tensor};
-use candle_transformers::models::sam3;
+use candle_sam3 as sam3;
 use image::Rgba;
 use imageproc::drawing::draw_hollow_rect_mut;
 use serde::{Deserialize, Serialize};
@@ -633,7 +633,7 @@ mod tests {
     use anyhow::Result;
     use candle::{DType, Device, Tensor};
     use candle_nn::VarBuilder;
-    use candle_transformers::models::sam3::{
+    use candle_sam3::{
         Config, DecoderConfig, EncoderConfig, GeometryConfig, GeometryPrompt, GroundingOutput,
         ImageConfig, NeckConfig, Sam3ImageModel, SegmentationConfig, TextConfig, VisionConfig,
     };

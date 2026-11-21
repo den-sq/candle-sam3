@@ -1,5 +1,5 @@
 use super::*;
-use crate::models::sam3::{
+use crate::{
     torch_ops::tensor::repeat_interleave, tracker::prompt_inputs::normalize_mask_prompt,
 };
 

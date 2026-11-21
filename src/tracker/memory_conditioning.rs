@@ -1,7 +1,7 @@
 use std::collections::BTreeSet;
 
 use super::*;
-use crate::models::sam3::torch_ops::tensor::{first_scalar_f32, repeat_interleave};
+use crate::torch_ops::tensor::{first_scalar_f32, repeat_interleave};
 
 #[derive(Debug)]
 pub(super) struct PreparedMemoryConditioning {

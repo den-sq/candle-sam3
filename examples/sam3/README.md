@@ -1,7 +1,7 @@
 # SAM 3 Example
 
 This example is now runtime-only. It covers local SAM3 inference flows in the
-main Candle repo and no longer owns upstream export, parity comparison, or
+candle-sam3 crate and no longer owns upstream export, parity comparison, or
 fixture-generation tooling.
 
 For parity/export workflows, use the sibling repo at
@@ -41,7 +41,7 @@ commands. It prompts for your Hugging Face username, Hugging Face access token,
 and a download directory that defaults to `./chkpts`.
 
 ```bash
-source candle-examples/examples/sam3/setup_sam3_env.sh
+source examples/sam3/setup_sam3_env.sh
 ```
 
 The helper downloads `sam3.pt` and `tokenizer.json` from the gated
@@ -56,25 +56,25 @@ launching it. Cargo's default build mode is debug unless `--release` is
 included.
 
 ```bash
-cargo build -p candle-examples --example sam3
+cargo build --features media --example sam3
 ```
 
 The matching optimized release build is:
 
 ```bash
-cargo build -p candle-examples --release --example sam3
+cargo build --features media --release --example sam3
 ```
 
 For CUDA, add the feature flag:
 
 ```bash
-cargo build -p candle-examples --features cuda --example sam3
+cargo build --features media,cuda --example sam3
 ```
 
 For an optimized CUDA build:
 
 ```bash
-cargo build -p candle-examples --features cuda --release --example sam3
+cargo build --features media,cuda --release --example sam3
 ```
 
 ## Example Commands
@@ -82,10 +82,10 @@ cargo build -p candle-examples --features cuda --release --example sam3
 CPU image inference:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
+cargo run --features media --example sam3 -- \
   --image /path/to/image.jpg \
   --prompt "shoe" \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 CUDA image inference:
@@ -94,20 +94,20 @@ CUDA image inference:
 PATH="/usr/local/cuda-12.9/bin:$PATH" \
 CUDA_HOME=/usr/local/cuda-12.9 \
 LD_LIBRARY_PATH="/usr/local/cuda-12.9/lib64:${LD_LIBRARY_PATH:-}" \
-cargo run -p candle-examples --features cuda --example sam3 -- \
+cargo run --features media,cuda --example sam3 -- \
   --image /path/to/image.jpg \
   --prompt "shoe" \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 Geometry-only image inference:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
+cargo run --features media --example sam3 -- \
   --image /path/to/image.jpg \
   --point 0.29,0.31 \
   --point-label 1 \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 CUDA geometry-only image inference:
@@ -116,17 +116,17 @@ CUDA geometry-only image inference:
 PATH="/usr/local/cuda-12.9/bin:$PATH" \
 CUDA_HOME=/usr/local/cuda-12.9 \
 LD_LIBRARY_PATH="/usr/local/cuda-12.9/lib64:${LD_LIBRARY_PATH:-}" \
-cargo run -p candle-examples --features cuda --example sam3 -- \
+cargo run --features media,cuda --example sam3 -- \
   --image /path/to/image.jpg \
   --point 0.29,0.31 \
   --point-label 1 \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 Mixed text + geometry inference:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
+cargo run --features media --example sam3 -- \
   --image /path/to/image.jpg \
   --prompt "truck" \
   --box 0.31,0.61,0.15,0.23 \
@@ -135,7 +135,7 @@ cargo run -p candle-examples --example sam3 -- \
   --point-label 1 \
   --point 0.62,0.52 \
   --point-label 0 \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 CUDA mixed text + geometry inference:
@@ -144,7 +144,7 @@ CUDA mixed text + geometry inference:
 PATH="/usr/local/cuda-12.9/bin:$PATH" \
 CUDA_HOME=/usr/local/cuda-12.9 \
 LD_LIBRARY_PATH="/usr/local/cuda-12.9/lib64:${LD_LIBRARY_PATH:-}" \
-cargo run -p candle-examples --features cuda --example sam3 -- \
+cargo run --features media,cuda --example sam3 -- \
   --image /path/to/image.jpg \
   --prompt "truck" \
   --box 0.31,0.61,0.15,0.23 \
@@ -153,15 +153,15 @@ cargo run -p candle-examples --features cuda --example sam3 -- \
   --point-label 1 \
   --point 0.62,0.52 \
   --point-label 0 \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 Batch-manifest execution:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
-  --batch-manifest candle-examples/examples/sam3/batch_manifest.example.json \
-  --output-dir candle-examples/examples/sam3/output/batch
+cargo run --features media --example sam3 -- \
+  --batch-manifest examples/sam3/batch_manifest.example.json \
+  --output-dir examples/sam3/output/batch
 ```
 
 CUDA batch-manifest execution:
@@ -170,17 +170,17 @@ CUDA batch-manifest execution:
 PATH="/usr/local/cuda-12.9/bin:$PATH" \
 CUDA_HOME=/usr/local/cuda-12.9 \
 LD_LIBRARY_PATH="/usr/local/cuda-12.9/lib64:${LD_LIBRARY_PATH:-}" \
-cargo run -p candle-examples --features cuda --example sam3 -- \
-  --batch-manifest candle-examples/examples/sam3/batch_manifest.example.json \
-  --output-dir candle-examples/examples/sam3/output/batch
+cargo run --features media,cuda --example sam3 -- \
+  --batch-manifest examples/sam3/batch_manifest.example.json \
+  --output-dir examples/sam3/output/batch
 ```
 
 Notebook example port execution:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
+cargo run --features media --example sam3 -- \
   --notebook-example image-predictor \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 CUDA notebook example port execution:
@@ -189,9 +189,9 @@ CUDA notebook example port execution:
 PATH="/usr/local/cuda-12.9/bin:$PATH" \
 CUDA_HOME=/usr/local/cuda-12.9 \
 LD_LIBRARY_PATH="/usr/local/cuda-12.9/lib64:${LD_LIBRARY_PATH:-}" \
-cargo run -p candle-examples --features cuda --example sam3 -- \
+cargo run --features media,cuda --example sam3 -- \
   --notebook-example image-predictor \
-  --output-dir candle-examples/examples/sam3/output
+  --output-dir examples/sam3/output
 ```
 
 The notebook runners write under:
@@ -204,10 +204,10 @@ The notebook runners write under:
 Interactive replay:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
+cargo run --features media --example sam3 -- \
   --interactive /path/to/image.jpg \
-  --interactive-script candle-examples/examples/sam3/interactive_replay.example.json \
-  --output-dir candle-examples/examples/sam3/output/interactive
+  --interactive-script examples/sam3/interactive_replay.example.json \
+  --output-dir examples/sam3/output/interactive
 ```
 
 CUDA interactive replay:
@@ -216,19 +216,19 @@ CUDA interactive replay:
 PATH="/usr/local/cuda-12.9/bin:$PATH" \
 CUDA_HOME=/usr/local/cuda-12.9 \
 LD_LIBRARY_PATH="/usr/local/cuda-12.9/lib64:${LD_LIBRARY_PATH:-}" \
-cargo run -p candle-examples --features cuda --example sam3 -- \
+cargo run --features media,cuda --example sam3 -- \
   --interactive /path/to/image.jpg \
-  --interactive-script candle-examples/examples/sam3/interactive_replay.example.json \
-  --output-dir candle-examples/examples/sam3/output/interactive
+  --interactive-script examples/sam3/interactive_replay.example.json \
+  --output-dir examples/sam3/output/interactive
 ```
 
 Video prediction:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
+cargo run --features media --example sam3 -- \
   --video /path/to/video.mp4 \
   --video-prompt "person" \
-  --output-dir candle-examples/examples/sam3/output/video
+  --output-dir examples/sam3/output/video
 ```
 
 CUDA video prediction:
@@ -237,10 +237,10 @@ CUDA video prediction:
 PATH="/usr/local/cuda-12.9/bin:$PATH" \
 CUDA_HOME=/usr/local/cuda-12.9 \
 LD_LIBRARY_PATH="/usr/local/cuda-12.9/lib64:${LD_LIBRARY_PATH:-}" \
-cargo run -p candle-examples --features cuda --example sam3 -- \
+cargo run --features media,cuda --example sam3 -- \
   --video /path/to/video.mp4 \
   --video-prompt "person" \
-  --output-dir candle-examples/examples/sam3/output/video
+  --output-dir examples/sam3/output/video
 ```
 
 The default video render remains the existing per-object green overlay. When
@@ -248,7 +248,7 @@ provided, the repeatable `--video-render` option selects one or more artifact
 styles to export in the same run:
 
 ```bash
-cargo run -p candle-examples --example sam3 -- \
+cargo run --features media --example sam3 -- \
   --video /path/to/video.mp4 \
   --video-prompt "person" \
   --video-render combined-upstream \
@@ -256,7 +256,7 @@ cargo run -p candle-examples --example sam3 -- \
   --video-render cutout-rgb-black \
   --video-draw-contours \
   --video-mask-threshold 0.5 \
-  --output-dir candle-examples/examples/sam3/output/video
+  --output-dir examples/sam3/output/video
 ```
 
 Available render modes are:

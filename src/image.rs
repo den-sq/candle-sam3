@@ -511,8 +511,8 @@ mod tests {
     use candle::{Device, Result, Tensor};
     use candle_nn::VarBuilder;
 
-    use crate::models::sam3::Sam3ImageModel;
-    use crate::models::sam3::{
+    use crate::Sam3ImageModel;
+    use crate::{
         Config, DecoderConfig, EncoderConfig, GeometryConfig, GeometryPrompt, ImageConfig,
         NeckConfig, SegmentationConfig, TextConfig, VisionConfig,
     };

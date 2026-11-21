@@ -3,8 +3,8 @@ use std::path::{Path, PathBuf};
 
 use anyhow::{bail, Context, Result};
 use candle::{Device, IndexOp};
-use candle_examples::sam3_video::MediaFrameSource;
-use candle_transformers::models::sam3;
+use candle_sam3::media::MediaFrameSource;
+use candle_sam3 as sam3;
 use image::{ImageReader, Rgba, RgbaImage};
 use imageproc::drawing::draw_hollow_rect_mut;
 use serde_json::json;

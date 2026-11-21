@@ -7,7 +7,7 @@ use candle_nn::{
     VarBuilder,
 };
 
-use crate::models::segment_anything::{
+use candle_transformers::models::segment_anything::{
     linear, prompt_encoder::PromptEncoder, transformer::TwoWayTransformer, LayerNorm2d, Linear,
 };
 

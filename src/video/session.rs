@@ -1,5 +1,5 @@
 use super::*;
-use crate::models::sam3::tracker::{add_tensor_memory, PackedPromptHistory};
+use crate::tracker::{add_tensor_memory, PackedPromptHistory};
 
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct SessionCacheByteBreakdown {

@@ -1,5 +1,5 @@
 use super::*;
-use crate::models::sam3::torch_ops::tensor::{first_scalar_f32, flatten_all_contiguous};
+use crate::torch_ops::tensor::{first_scalar_f32, flatten_all_contiguous};
 
 impl<'a> Sam3VideoTrackerCore<'a> {
     pub(super) fn postprocess_output(
